@@ -27,6 +27,7 @@ def enter_vol(oFieldsReporter, VolumeName):
     oFieldsReporter.EnterVol(VolumeName)
 
 
+
 def calc_op(oFieldsReporter, OperationString):
     """
     Performs a calculator operation in the Fields Calculator.
@@ -85,6 +86,7 @@ def clc_eval(oFieldsReporter, setupname, sweepname, freq, phase, variablesdict):
     oFieldsReporter.ClcEval(solutionname, variablesarray)
     
     
+    
 def enter_qty(oFieldsReporter, FieldQuantityString):
     """
     Enter a field quantity into the Fields Calculator.
@@ -101,6 +103,7 @@ def enter_qty(oFieldsReporter, FieldQuantityString):
     None
     """
     return oFieldsReporter.EnterQty(FieldQuantityString)
+    
     
     
 def get_top_entry_value(oModule, setupname, sweepname, freq, phase, variablesdict):

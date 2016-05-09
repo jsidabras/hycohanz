@@ -289,6 +289,86 @@ def create_circle(oEditor, xc, yc, zc, radius,
 
     return oEditor.CreateCircle(circleparams, attributesarray)
 
+def create_box(   oEditor, 
+                        xs, 
+                        ys, 
+                        zs, 
+                        x_size, 
+                        y_size, 
+                        z_size, 
+                        Name='Rectangle1', 
+                        Flags='', 
+                        Color=(132, 132, 193), 
+                        Transparency=0, 
+                        PartCoordinateSystem='Global',
+                        UDMId='',
+                        MaterialValue='"vacuum"',
+                        SolveInside=True,
+                        IsCovered=True):
+    """
+    Draw a rectangle.
+    
+    Parameters
+    ----------
+    oEditor : pywin32 COMObject
+        The HFSS editor in which the operation will be performed.
+    xs : float or hycohanz Expression object
+    ys : float or hycohanz Expression object
+    zs : float or hycohanz Expression object
+        The x, y, and z coordinates of the center of the circle.
+    width : float or hycohanz Expression object
+        x-dimension of the rectangle
+    height : float or hycohanz Expression object
+        y-dimension of the rectangle
+    WhichAxis : str
+        The axis normal to the circle.  Can be 'X', 'Y', or 'Z'.
+    Name : str
+        The requested name of the object.  If this is not available, HFSS 
+        will assign a different name, which is returned by this function.
+    Flags : str
+        Flags associated with this object.  See HFSS help for details.
+    Color : tuple of length=3
+        RGB components of the circle
+    Transparency : float between 0 and 1
+        Fractional transparency.  0 is opaque and 1 is transparent.
+    PartCoordinateSystem : str
+        The name of the coordinate system in which the object is drawn.
+    MaterialName : str
+        Name of the material to assign to the object.  Name must be surrounded 
+        by double quotes.
+    SolveInside : bool
+        Whether to mesh the interior of the object and solve for the fields 
+        inside.
+    IsCovered : bool
+        Whether the rectangle is has a surface or has only edges.
+        
+    Returns
+    -------
+    str
+        The actual name of the created object.
+        
+    """
+    BoxParameters = [ "NAME:BoxParameters",
+					"XPosition:=", Ex(xs).expr,
+					"YPosition:=", Ex(ys).expr,
+					"ZPosition:=", Ex(zs).expr,
+					"XSize:=", Ex(x_size).expr,
+					"YSize:=", Ex(y_size).expr,
+					"ZSize:=", Ex(z_size).expr]
+
+    Attributes = [  "NAME:Attributes",
+                    "Name:=", Name,
+                    "Flags:=", Flags,
+                    "Color:=", "({r} {g} {b})".format(r=Color[0], g=Color[1], b=Color[2]),
+                    "Transparency:=", Transparency,
+                    "PartCoordinateSystem:=", PartCoordinateSystem,
+                    "UDMId:=", UDMId,
+                    "MaterialValue:=", MaterialValue,
+                    "SolveInside:=", SolveInside]
+                    
+    return oEditor.CreateBox(BoxParameters, Attributes)	
+	
+	
 def create_sphere(oEditor, x, y, z, radius,
                   Name="Sphere1",
                   Flags="",
@@ -357,86 +437,6 @@ def create_sphere(oEditor, x, y, z, radius,
     part = oEditor.CreateSphere(sphereparametersarray, attributesarray)
     
     return part
-
-def create_box( oEditor, 
-                xpos, 
-                ypos, 
-                zpos, 
-                xsize, 
-                ysize,
-                zsize,
-                Name='Box1', 
-                Flags='', 
-                Color=(132, 132, 193), 
-                Transparency=0, 
-                PartCoordinateSystem='Global',
-                UDMId='',
-                MaterialValue='"vacuum"',
-                SolveInside=True,
-                IsCovered=True,
-                ):
-    """
-    Draw a 3D box.
-
-    Note:  This function was contributed by Github user el-drive.
-
-    Parameters
-    ----------
-    oEditor : pywin32 COMObject
-        The HFSS editor in which the operation will be performed.
-    xpos : float or hycohanz Expression object
-    ypos : float or hycohanz Expression object
-    zpos : float or hycohanz Expression object
-        The x, y, and z coordinates of the base point of the box.
-    xsize : float or hycohanz Expression object
-    ysize : float or hycohanz Expression object
-    zsize : float or hycohanz Expression object
-        x-, y-, and z-dimensions of the box
-    Name : str
-        The requested name of the object.  If this is not available, HFSS 
-        will assign a different name, which is returned by this function.
-    Flags : str
-        Flags associated with this object.  See HFSS Scripting Guide for details.
-    Color : tuple of length=3
-        RGB components of the circle
-    Transparency : float between 0 and 1
-        Fractional transparency.  0 is opaque and 1 is transparent.
-    PartCoordinateSystem : str
-        The name of the coordinate system in which the object is drawn.
-    MaterialName : str
-        Name of the material to assign to the object.  Name must be surrounded 
-        by double quotes.
-    SolveInside : bool
-        Whether to mesh the interior of the object and solve for the fields 
-        inside.
-    IsCovered : bool
-        Whether the rectangle is has a surface or has only edges.
-
-    Returns
-    -------
-    str
-        The actual name of the created object.
-
-    """
-    BoxParameters = [ "NAME:BoxParameters",
-                    "XPosition:=", Ex(xpos).expr,
-                    "YPosition:=", Ex(ypos).expr,
-                    "ZPosition:=", Ex(zpos).expr,
-                    "XSize:=", Ex(xsize).expr,
-                    "YSize:=", Ex(ysize).expr,
-                    "ZSize:=", Ex(zsize).expr]
-
-    Attributes = [  "NAME:Attributes",
-                    "Name:=", Name,
-                    "Flags:=", Flags,
-                    "Color:=", "({r} {g} {b})".format(r=Color[0], g=Color[1], b=Color[2]),
-                    "Transparency:=", Transparency,
-                    "PartCoordinateSystem:=", PartCoordinateSystem,
-                    "UDMId:=", UDMId,
-                    "MaterialValue:=", MaterialValue,
-                    "SolveInside:=", SolveInside]
-
-    return oEditor.CreateBox(BoxParameters, Attributes)    
 
 def create_polyline(oEditor, x, y, z, Name="Polyline1", 
                                 Flags="", 
@@ -700,6 +700,40 @@ def copy(oEditor, partlist):
                        "NewPartsModelFlag:=", "Model"]
                        
     oEditor.Copy(selectionsarray)
+
+def duplicate_along_line(oEditor, partlist,x,y,z,n_clones=1,create_new_objects=True,duplicate_boundaries = False):
+    """
+    Copy specified parts to the clipboard.
+    
+    Parameters
+    ----------
+    oEditor : pywin32 COMObject
+        The HFSS Editor in which to perform the operation
+    partlist : list of strings
+        The parts to Duplicate
+    x, y and z: hfss expression
+		Repetition vector distance from original
+	n_clones: hfss expression
+		number of duplicates
+	duplicate_boundaries: boolean
+		Duplicate model boundaries
+    Returns
+    -------
+    None
+    """
+    selectionsarray = ["NAME:Selections", 
+                       "Selections:=", ','.join(partlist), 
+                       "NewPartsModelFlag:=", "Model"]
+    duplineparametersarray = [		"NAME:DuplicateToAlongLineParameters",
+					"CreateNewObjects:="	, create_new_objects,
+					"XComponent:=", Ex(x).expr, 
+					"YComponent:=", Ex(y).expr, 
+					"ZComponent:=", Ex(z).expr, 
+					"NumClones:=", Ex(n_clones).expr]
+    dupboundariesarray= ["NAME:Options", 
+				   "DuplicateBoundaries:=", duplicate_boundaries]
+    return oEditor.DuplicateAlongLine(selectionsarray,duplineparametersarray,dupboundariesarray)
+
     
 def get_object_id_by_name(oEditor, objname):
     """
@@ -1164,7 +1198,7 @@ def delete(oEditor, partlist):
                        
     return oEditor.Delete(selectionsarray)
 
-
+    
 def split(oEditor, partlist, 
           NewPartsModelFlag="Model", 
           SplitPlane='XY', 
@@ -1319,6 +1353,7 @@ def rename_part(oEditor, oldname, newname):
     
     return oEditor.RenamePart(renameparamsarray)
 
+
 def get_face_ids(oEditor, body_name):
     """
     Get the face id list of a given body name.
@@ -1338,4 +1373,3 @@ def get_face_ids(oEditor, body_name):
 
     face_id_list = list(oEditor.GetFaceIDs(body_name))
     return map(int,face_id_list)
-
