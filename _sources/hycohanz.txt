@@ -1,5 +1,0 @@
-General-Use Functions
-=====================
-
-.. automodule:: hycohanz.hycohanz
-   :members:

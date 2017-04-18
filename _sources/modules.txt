@@ -1,8 +1,0 @@
-hycohanz
-========
-
-.. toctree::
-   :maxdepth: 4
-
-   hycohanz
-   setup
