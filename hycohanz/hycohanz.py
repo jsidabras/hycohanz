@@ -36,14 +36,22 @@ from hycohanz.project import (get_project_name,
                               set_active_design, 
                               insert_design)
 
+<<<<<<< HEAD
 from hycohanz.property import add_property
+=======
+from hycohanz.property import ( add_property,
+                                set_variable,
+                                )
+>>>>>>> 7ee2817e02edc1ab6e870dd75a2ccbacfab18004
 
 from hycohanz.design import (get_module, 
                              set_active_editor)
 
 from hycohanz.expression import Expression
 from hycohanz.modeler3d import *
-from hycohanz.material import *
+from hycohanz.material import ( add_material,
+                                does_material_exist,
+                                )
 
 from hycohanz.analysis_setup import (insert_frequency_sweep, 
                                      insert_analysis_setup)

@@ -39,4 +39,58 @@ def add_property(oDesign, name, value):
           
     oDesign.ChangeProperty(["NAME:AllTabs", proptabarray])
 
+<<<<<<< HEAD
+=======
+def set_variable(oProject, name, value):
+    """
+    Change a design property.  This function differs significantly from 
+    SetVariableValue() in that it makes the reasonable assumption that 
+    if the variable contains '$', then the variable is global; otherwise, 
+    it is assumed to be a local variable.
+    
+    Parameters
+    ----------
+    oProject : pywin32 COMObject
+        The HFSS design from which to retrieve the module.
+    name : str
+        The name of the property/variable to edit.
+    value : Hyphasis Expression object
+        The new value of the property.
+        
+    Returns
+    -------
+    None
+    
+    """
+    if '$' in name: 
+		oProject.SetVariableValue(name,Expression(value).expr)
+    else:
+		oDesign = oProject.GetActiveDesign()
+		oDesign.SetVariableValue(name,Expression(value).expr)
+
+def get_variables(oProject,oDesign=''):
+    """
+    get list of non-indexed variables.
+    
+    Parameters
+    ----------
+    oProject : pywin32 COMObject
+        The HFSS design from which to retrieve the variables.
+    oDesign : pywin32 COMObject
+        Optional, if specified function returns variable list of oDesign.
+
+        
+    Returns
+    -------
+    variable_list: list of str
+	list of non-indexed project/design variables
+    
+    """
+    if oDesign=='':
+        variable_list = list(oProject.GetVariables())
+    else:
+        variable_list = list(oDesign.GetVariables())
+    return map(str,variable_list)
+>>>>>>> 7ee2817e02edc1ab6e870dd75a2ccbacfab18004
+
 
