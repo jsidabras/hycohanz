@@ -22,7 +22,8 @@ from hycohanz.appobject import setup_interface
 
 from hycohanz.desktop import (quit_application, 
                               new_project, 
-                              open_project, 
+                              open_project,
+                              saveas_project,
                               close_project_byname, 
                               get_active_project, 
                               close_project_byhandle, 
@@ -31,11 +32,17 @@ from hycohanz.desktop import (quit_application,
                               close_all_projects, 
                               close_all_projects_except_current)
 
-from hycohanz.project import *
+from hycohanz.project import (get_project_name, 
+                              set_active_design, 
+                              insert_design)
 
+<<<<<<< HEAD
+from hycohanz.property import add_property
+=======
 from hycohanz.property import ( add_property,
                                 set_variable,
                                 )
+>>>>>>> 7ee2817e02edc1ab6e870dd75a2ccbacfab18004
 
 from hycohanz.design import (get_module, 
                              set_active_editor)
