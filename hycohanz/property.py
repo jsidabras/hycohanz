@@ -41,7 +41,10 @@ def add_property(oDesign, name, value):
 
 def set_variable(oProject, name, value):
     """
-    Change a design property.
+    Change a design property.  This function differs significantly from 
+    SetVariableValue() in that it makes the reasonable assumption that 
+    if the variable contains '$', then the variable is global; otherwise, 
+    it is assumed to be a local variable.
     
     Parameters
     ----------
@@ -62,7 +65,7 @@ def set_variable(oProject, name, value):
     else:
 		oDesign = oProject.GetActiveDesign()
 		oDesign.SetVariableValue(name,Expression(value).expr)
-		
+
 def get_variables(oProject,oDesign=''):
     """
     get list of non-indexed variables.
@@ -86,4 +89,5 @@ def get_variables(oProject,oDesign=''):
     else:
         variable_list = list(oDesign.GetVariables())
     return map(str,variable_list)
+
 

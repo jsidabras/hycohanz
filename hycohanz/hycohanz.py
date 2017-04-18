@@ -33,14 +33,18 @@ from hycohanz.desktop import (quit_application,
 
 from hycohanz.project import *
 
-from hycohanz.property import *
+from hycohanz.property import ( add_property,
+                                set_variable,
+                                )
 
 from hycohanz.design import (get_module, 
                              set_active_editor)
 
 from hycohanz.expression import Expression
 from hycohanz.modeler3d import *
-from hycohanz.material import *
+from hycohanz.material import ( add_material,
+                                does_material_exist,
+                                )
 
 from hycohanz.analysis_setup import (insert_frequency_sweep, 
                                      insert_analysis_setup)
