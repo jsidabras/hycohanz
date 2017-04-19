@@ -439,8 +439,7 @@ def create_sphere(oEditor, x, y, z, radius,
     
     return part
 
-<<<<<<< HEAD
-=======
+
 def create_box( oEditor, 
                 xpos, 
                 ypos, 
@@ -521,7 +520,7 @@ def create_box( oEditor,
 
     return oEditor.CreateBox(BoxParameters, Attributes)    
 
->>>>>>> 7ee2817e02edc1ab6e870dd75a2ccbacfab18004
+
 def create_polyline(oEditor, x, y, z, Name="Polyline1", 
                                 Flags="", 
                                 Color="(132 132 193)", 

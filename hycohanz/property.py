@@ -39,8 +39,7 @@ def add_property(oDesign, name, value):
           
     oDesign.ChangeProperty(["NAME:AllTabs", proptabarray])
 
-<<<<<<< HEAD
-=======
+
 def set_variable(oProject, name, value):
     """
     Change a design property.  This function differs significantly from 
@@ -91,6 +90,3 @@ def get_variables(oProject,oDesign=''):
     else:
         variable_list = list(oDesign.GetVariables())
     return map(str,variable_list)
->>>>>>> 7ee2817e02edc1ab6e870dd75a2ccbacfab18004
-
-

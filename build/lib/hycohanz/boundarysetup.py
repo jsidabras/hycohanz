@@ -9,7 +9,6 @@ At last count there were 4 functions implemented out of 20.
 from __future__ import division, print_function, unicode_literals, absolute_import
 
 from hycohanz.design import get_module
-from hycohanz.expression import Expression as Ex
 
 def assign_perfect_e(oDesign, boundaryname, facelist, InfGroundPlane=False):
     """
@@ -111,8 +110,8 @@ def assign_perfect_h(oDesign, boundaryname, facelist):
     oBoundarySetupModule.AssignPerfectH(["Name:" + boundaryname, "Faces:=", facelist])
 
 def assign_waveport_multimode(oDesign, 
-                              port_name, 
-                              face_id_list, 
+                              portname, 
+                              faceidlist, 
                               Nmodes=1,
                               RenormalizeAllTerminals=True,
                               UseLineAlignment=False,
@@ -120,32 +119,33 @@ def assign_waveport_multimode(oDesign,
                               ShowReporterFilter=False,
                               ReporterFilter=[True],
                               UseAnalyticAlignment=False):
-	"""
-	Assign a waveport excitation using multiple modes.
-
-	Parameters
-	----------
-	oDesign : pywin32 COMObject
-		The HFSS design to which this function is applied.
-	portname : str
-		Name of the port to create.
-	faceidlist : list
-		List of face id integers.
-	Nmodes : int
-		Number of modes with which to excite the port.
-		
-	Returns
-	-------
-	None
-	"""
-	oBoundarySetupModule = get_module(oDesign, "BoundarySetup")
-	modesarray = ["NAME:Modes"]
-	for n in range(0, Nmodes):
-		modesarray.append(["NAME:Mode" + str(n + 1),
+    """
+    Assign a waveport excitation using multiple modes.
+    
+    Parameters
+    ----------
+    oDesign : pywin32 COMObject
+        The HFSS design to which this function is applied.
+    portname : str
+        Name of the port to create.
+    faceidlist : list
+        List of face id integers.
+    Nmodes : int
+        Number of modes with which to excite the port.
+        
+    Returns
+    -------
+    None
+    """
+    oBoundarySetupModule = get_module(oDesign, "BoundarySetup")
+    modesarray = ["NAME:Modes"]
+    for n in range(0, Nmodes):
+        modesarray.append(["NAME:Mode" + str(n + 1),
                            "ModeNum:=", n + 1,
                            "UseIntLine:=", False])
-	waveportarray = ["NAME:" + port_name, 
-                     "Faces:=", face_id_list, 
+
+    waveportarray = ["NAME:" + portname, 
+                     "Faces:=", faceidlist, 
                      "NumModes:=", Nmodes, 
                      "RenormalizeAllTerminals:=", RenormalizeAllTerminals, 
                      "UseLineAlignment:=", UseLineAlignment, 
@@ -154,43 +154,11 @@ def assign_waveport_multimode(oDesign,
                      "ShowReporterFilter:=", ShowReporterFilter, 
                      "ReporterFilter:=", ReporterFilter, 
                      "UseAnalyticAlignment:=", UseAnalyticAlignment]
-					 
-	oBoundarySetupModule.AssignWavePort(waveportarray)
 
-def assign_finite_conductor(oDesign, face_id_list, bounndary_name='FiniteCond1', use_material=False,material_name='gold', conductivity=5.8E7, permeability=1,roughness=0.0,inf_ground_plane=False):
-	"""
-	Assign a finite conductor boundary to the specified objects or faces. 
-	At the moment, can only apply boundary to object faces.
-	Parameters
-	----------
-	oDesign : pywin32 COMObject
-        The HFSS design in which the operation will be performed.
-	partlist : list
-        List of part name strings to which the material is applied.
-    
-	Returns
-	-------
-	None
-	"""
-	oBoundarySetupModule = get_module(oDesign, "BoundarySetup")
+    oBoundarySetupModule.AssignWavePort(waveportarray)
 
-	if use_material:
-		arg = ["NAME:{0}".format(boundary_name), 
-				"UseMaterial:=",use_material,
-				"Material:=", material_name,
-				"Roughness:=", Ex(roughness).expr,
-				"InfGroundPlane:=",inf_ground_plane,
-				"Faces:=", face_id_list]
-	else:
-		arg = ["NAME:{0}".format(boundary_name), 
-				"UseMaterial:=",use_material,
-				"Material:=", material_name,
-				"Conductivity:=", Ex(conductivity).expr,
-				"Permeability:=", Ex(permeability).expr,
-				"Roughness:=", Ex(xs).expr,
-				"InfGroundPlane:=",inf_ground_plane,
-				"Faces:=", face_id_list]
-	oBoundarySetupModule.AssignRadiation(arg)
-    
-    
+
+
+
+
         

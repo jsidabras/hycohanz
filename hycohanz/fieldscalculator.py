@@ -9,6 +9,23 @@ At last count there were 5 functions implemented out of 28.
 
 from __future__ import division, print_function, unicode_literals, absolute_import
 
+def enter_line(oFieldsReporter, LineName):
+    """
+    Enters a volume defined in the 3D Modeler editor into the Fields Calculator.
+
+    Parameters
+    ----------
+    oFieldsReporter : pywin32 COMObject
+        An HFSS "FieldsReporter" module
+    VolumeName : str
+        Name of a Line defined in the 3D Modeler editor.
+
+    Returns
+    -------
+    None
+    """
+    oFieldsReporter.EnterLine(LineName)
+
 def enter_vol(oFieldsReporter, VolumeName):
     """
     Enters a volume defined in the 3D Modeler editor into the Fields Calculator.

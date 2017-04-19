@@ -29,10 +29,10 @@ def setup_interface():
     # prefer that a new process is created.  Apparently 
     # win32com.client.DispatchEx() doesn't work here either.
 	#oAnsoftApp = win32com.client.Dispatch('AnsoftHfss.HfssScriptInterface')
-	oAnsoftApp = win32com.client.Dispatch('Ansoft.ElectronicsDesktop')
-	#try: oAnsoftApp = win32com.client.Dispatch('AnsoftHfss.HfssScriptInterface')
-	#except Exception: pass   
-	#try: oAnsoftApp = win32com.client.Dispatch('Ansoft.ElectronicsDesktop')
-	#except Exception: pass   
+	#oAnsoftApp = win32com.client.Dispatch('Ansoft.ElectronicsDesktop')
+	try: oAnsoftApp = win32com.client.Dispatch('AnsoftHfss.HfssScriptInterface')
+	except Exception: pass   
+	try: oAnsoftApp = win32com.client.Dispatch('Ansoft.ElectronicsDesktop')
+	except Exception: pass   
 	oDesktop = oAnsoftApp.GetAppDesktop()
 	return [oAnsoftApp, oDesktop]
