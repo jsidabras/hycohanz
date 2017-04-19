@@ -23,7 +23,7 @@ from hycohanz.appobject import setup_interface
 from hycohanz.desktop import (quit_application, 
                               new_project, 
                               open_project,
-                              saveas_project,
+                              save_as_project,
                               close_project_byname, 
                               get_active_project, 
                               close_project_byhandle, 
@@ -34,12 +34,14 @@ from hycohanz.desktop import (quit_application,
 
 from hycohanz.project import (get_project_name, 
                               set_active_design, 
-                              insert_design)
+                              insert_design,
+							  get_design,
+							  get_top_design_list)
 
 
 from hycohanz.property import ( add_property,
                                 set_variable,
-                                )
+                                get_variables)
 
 from hycohanz.design import (get_module, 
                              set_active_editor)
@@ -56,9 +58,11 @@ from hycohanz.analysis_setup import (insert_frequency_sweep,
 from hycohanz.boundarysetup import (assign_perfect_e, 
                                     assign_radiation,
                                     assign_perfect_h,
-                                    assign_waveport_multimode)
+                                    assign_waveport_multimode,
+									assign_finite_conductor)
                                     
-from hycohanz.fieldscalculator import (enter_vol, 
+from hycohanz.fieldscalculator import (enter_line,
+                                       enter_vol, 
                                        calc_op, 
                                        clc_eval, 
                                        enter_qty, 

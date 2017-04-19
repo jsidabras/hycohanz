@@ -90,5 +90,3 @@ def get_variables(oProject,oDesign=''):
     else:
         variable_list = list(oDesign.GetVariables())
     return map(str,variable_list)
-
-
