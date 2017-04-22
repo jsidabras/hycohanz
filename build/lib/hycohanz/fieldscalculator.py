@@ -9,39 +9,7 @@ At last count there were 5 functions implemented out of 28.
 
 from __future__ import division, print_function, unicode_literals, absolute_import
 
-def enter_line(oFieldsReporter, LineName):
-    """
-    Enters a volume defined in the 3D Modeler editor into the Fields Calculator.
 
-    Parameters
-    ----------
-    oFieldsReporter : pywin32 COMObject
-        An HFSS "FieldsReporter" module
-    VolumeName : str
-        Name of a Line defined in the 3D Modeler editor.
-
-    Returns
-    -------
-    None
-    """
-    oFieldsReporter.EnterLine(LineName)
-
-def enter_vol(oFieldsReporter, VolumeName):
-    """
-    Enters a volume defined in the 3D Modeler editor into the Fields Calculator.
-
-    Parameters
-    ----------
-    oFieldsReporter : pywin32 COMObject
-        An HFSS "FieldsReporter" module
-    VolumeName : str
-        Name of a volume defined in the 3D Modeler editor.
-
-    Returns
-    -------
-    None
-    """
-    oFieldsReporter.EnterVol(VolumeName)
 
 
 
@@ -97,12 +65,27 @@ def clc_eval(oFieldsReporter, setupname, sweepname, freq, phase, variablesdict):
     for key in variablesdict:
         variablesarray += [str(key) + ':=', str(variablesdict[key])]
         
-    print('solutionname: ' + str(solutionname))
-    print('variablesarray: ' + str(variablesarray))
-    
+  
     oFieldsReporter.ClcEval(solutionname, variablesarray)
     
-    
+def enter_line(oFieldsReporter, LineName):
+    """
+    Enters a line defined in the 3D Modeler editor into the Fields Calculator.
+
+    Parameters
+    ----------
+    oFieldsReporter : pywin32 COMObject
+        An HFSS "FieldsReporter" module
+    VolumeName : str
+        Name of a Line defined in the 3D Modeler editor.
+
+    Returns
+    -------
+    None
+    """
+    oFieldsReporter.EnterLine(LineName)
+
+
     
 def enter_qty(oFieldsReporter, FieldQuantityString):
     """
@@ -120,8 +103,25 @@ def enter_qty(oFieldsReporter, FieldQuantityString):
     None
     """
     return oFieldsReporter.EnterQty(FieldQuantityString)
+
     
-    
+
+def enter_vol(oFieldsReporter, VolumeName):
+    """
+    Enters a volume defined in the 3D Modeler editor into the Fields Calculator.
+
+    Parameters
+    ----------
+    oFieldsReporter : pywin32 COMObject
+        An HFSS "FieldsReporter" module
+    VolumeName : str
+        Name of a volume defined in the 3D Modeler editor.
+
+    Returns
+    -------
+    None
+    """
+    oFieldsReporter.EnterVol(VolumeName)        
     
 def get_top_entry_value(oModule, setupname, sweepname, freq, phase, variablesdict):
     """
@@ -156,9 +156,7 @@ def get_top_entry_value(oModule, setupname, sweepname, freq, phase, variablesdic
     for key in variablesdict:
         variablesarray += [str(key) + ':=', str(variablesdict[key])]
         
-    print('solutionname: ' + str(solutionname))
-    print('variablesarray: ' + str(variablesarray))
-    
+   
     result = oModule.GetTopEntryValue(solutionname, variablesarray)
 
     return result

@@ -159,39 +159,39 @@ def assign_waveport_multimode(oDesign,
 
 
 def assign_finite_conductor(oDesign, face_id_list, bounndary_name='FiniteCond1', use_material=False,material_name='gold', conductivity=5.8E7, permeability=1,roughness=0.0,inf_ground_plane=False):
-	"""
-	Assign a finite conductor boundary to the specified objects or faces. 
-	At the moment, can only apply boundary to object faces.
-	Parameters
-	----------
-	oDesign : pywin32 COMObject
+    """
+    Assign a finite conductor boundary to the specified objects or faces. 
+    At the moment, can only apply boundary to object faces.
+    Parameters
+    ----------
+    oDesign : pywin32 COMObject
         The HFSS design in which the operation will be performed.
-	partlist : list
+    partlist : list
         List of part name strings to which the material is applied.
     
-	Returns
-	-------
-	None
-	"""
-	oBoundarySetupModule = get_module(oDesign, "BoundarySetup")
+    Returns
+    -------
+    None
+    """
+    oBoundarySetupModule = get_module(oDesign, "BoundarySetup")
 
-	if use_material:
-		arg = ["NAME:{0}".format(boundary_name), 
-				"UseMaterial:=",use_material,
-				"Material:=", material_name,
-				"Roughness:=", Ex(roughness).expr,
-				"InfGroundPlane:=",inf_ground_plane,
-				"Faces:=", face_id_list]
-	else:
-		arg = ["NAME:{0}".format(boundary_name), 
-				"UseMaterial:=",use_material,
-				"Material:=", material_name,
-				"Conductivity:=", Ex(conductivity).expr,
-				"Permeability:=", Ex(permeability).expr,
-				"Roughness:=", Ex(xs).expr,
-				"InfGroundPlane:=",inf_ground_plane,
-				"Faces:=", face_id_list]
-	oBoundarySetupModule.AssignRadiation(arg)
+    if use_material:
+        arg = ["NAME:{0}".format(boundary_name), 
+                "UseMaterial:=",use_material,
+                "Material:=", material_name,
+                "Roughness:=", Ex(roughness).expr,
+                "InfGroundPlane:=",inf_ground_plane,
+                "Faces:=", face_id_list]
+    else:
+        arg = ["NAME:{0}".format(boundary_name), 
+                "UseMaterial:=",use_material,
+                "Material:=", material_name,
+                "Conductivity:=", Ex(conductivity).expr,
+                "Permeability:=", Ex(permeability).expr,
+                "Roughness:=", Ex(xs).expr,
+                "InfGroundPlane:=",inf_ground_plane,
+                "Faces:=", face_id_list]
+    oBoundarySetupModule.AssignRadiation(arg)
 
 
         

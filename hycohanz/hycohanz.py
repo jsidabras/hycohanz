@@ -35,8 +35,8 @@ from hycohanz.desktop import (quit_application,
 from hycohanz.project import (get_project_name, 
                               set_active_design, 
                               insert_design,
-							  get_design,
-							  get_top_design_list)
+                              get_design,
+                              get_top_design_list)
 
 
 from hycohanz.property import ( add_property,
@@ -59,7 +59,7 @@ from hycohanz.boundarysetup import (assign_perfect_e,
                                     assign_radiation,
                                     assign_perfect_h,
                                     assign_waveport_multimode,
-									assign_finite_conductor)
+                                    assign_finite_conductor)
                                     
 from hycohanz.fieldscalculator import (enter_line,
                                        enter_vol, 

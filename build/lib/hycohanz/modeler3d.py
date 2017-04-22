@@ -37,6 +37,89 @@ def get_matched_object_name(oEditor, name_filter="*"):
     
     return list(selections)
 
+def assign_White(oEditor, partlist):
+    """
+    Assign a Volume as white.
+
+    Used for visualization of changes.
+        Parameters
+    ----------
+    oEditor : pywin32 COMObject
+        The HFSS editor in which the operation will be performed.
+    partlist : list
+        List of part name strings to which the material is applied. No error handling for empty list.
+
+    Returns
+    -------
+    None
+    """
+    propserversarray = ["NAME:PropServers"]
+    propserversarray.extend(partlist)
+    ismodelarray = ["NAME:ChangedProps",
+                [
+                    "NAME:Color",
+                    "R:="			, 255,
+                    "G:="			, 255,
+                    "B:="			, 255
+                ]
+            ]
+    protarray = ["NAME:Geometry3DAttributeTab", propserversarray, ismodelarray]
+    oEditor.ChangeProperty(["Name:AllTabs", protarray])
+
+def assign_Orange(oEditor, partlist):
+    """
+    Assign a Volume as orange.
+        Parameters
+    ----------
+    oEditor : pywin32 COMObject
+        The HFSS editor in which the operation will be performed.
+    partlist : list
+        List of part name strings to which the material is applied. No error handling for empty list.
+
+    Returns
+    -------
+    None
+    """
+    propserversarray = ["NAME:PropServers"]
+    propserversarray.extend(partlist)
+    ismodelarray = ["NAME:ChangedProps",
+                [
+                    "NAME:Color",
+                    "R:="			, 255,
+                    "G:="			, 128,
+                    "B:="			, 0
+                ]
+            ]
+    protarray = ["NAME:Geometry3DAttributeTab", propserversarray, ismodelarray]
+    oEditor.ChangeProperty(["Name:AllTabs", protarray])
+
+def assign_IsModel(oEditor, partlist, IsModel=True):
+    """
+    Assign a if a volume is a model or not (Model/NonModel).
+
+    You MUST run assign_material after you turn a volume from a NonModel to a Model
+        Parameters
+    ----------
+    oEditor : pywin32 COMObject
+        The HFSS editor in which the operation will be performed.
+    partlist : list
+        List of part name strings to which the material is applied. No error handling for empty list.
+
+    Returns
+    -------
+    None
+    """        
+    propserversarray = ["NAME:PropServers"]
+    propserversarray.extend(partlist)
+    ismodelarray = 	["NAME:ChangedProps",
+                [
+                    "NAME:Model",
+                    "Value:="		, IsModel
+                ]
+            ]
+    protarray = ["NAME:Geometry3DAttributeTab", propserversarray, ismodelarray]
+    oEditor.ChangeProperty(["Name:AllTabs", protarray])
+
 def assign_material(oEditor, partlist, MaterialName="vacuum", SolveInside=True):
     """
     Assign a material to the specified objects. Only the MaterialName and 
@@ -55,7 +138,7 @@ def assign_material(oEditor, partlist, MaterialName="vacuum", SolveInside=True):
     """
     selectionsarray = ["NAME:Selections", 
                        "Selections:=", ','.join(partlist)]
-    
+
     attributesarray = ["NAME:Attributes", 
                        "MaterialName:=", MaterialName, 
                        "SolveInside:=", SolveInside]
@@ -350,12 +433,12 @@ def create_box(   oEditor,
         
     """
     BoxParameters = [ "NAME:BoxParameters",
-					"XPosition:=", Ex(xs).expr,
-					"YPosition:=", Ex(ys).expr,
-					"ZPosition:=", Ex(zs).expr,
-					"XSize:=", Ex(x_size).expr,
-					"YSize:=", Ex(y_size).expr,
-					"ZSize:=", Ex(z_size).expr]
+                    "XPosition:=", Ex(xs).expr,
+                    "YPosition:=", Ex(ys).expr,
+                    "ZPosition:=", Ex(zs).expr,
+                    "XSize:=", Ex(x_size).expr,
+                    "YSize:=", Ex(y_size).expr,
+                    "ZSize:=", Ex(z_size).expr]
 
     Attributes = [  "NAME:Attributes",
                     "Name:=", Name,
@@ -367,9 +450,9 @@ def create_box(   oEditor,
                     "MaterialValue:=", MaterialValue,
                     "SolveInside:=", SolveInside]
                     
-    return oEditor.CreateBox(BoxParameters, Attributes)	
-	
-	
+    return oEditor.CreateBox(BoxParameters, Attributes) 
+    
+    
 def create_sphere(oEditor, x, y, z, radius,
                   Name="Sphere1",
                   Flags="",
@@ -795,11 +878,11 @@ def duplicate_along_line(oEditor, partlist,x,y,z,n_clones=1,create_new_objects=T
     partlist : list of strings
         The parts to Duplicate
     x, y and z: hfss expression
-		Repetition vector distance from original
-	n_clones: hfss expression
-		number of duplicates
-	duplicate_boundaries: boolean
-		Duplicate model boundaries
+        Repetition vector distance from original
+    n_clones: hfss expression
+        number of duplicates
+    duplicate_boundaries: boolean
+        Duplicate model boundaries
     Returns
     -------
     None
@@ -807,14 +890,14 @@ def duplicate_along_line(oEditor, partlist,x,y,z,n_clones=1,create_new_objects=T
     selectionsarray = ["NAME:Selections", 
                        "Selections:=", ','.join(partlist), 
                        "NewPartsModelFlag:=", "Model"]
-    duplineparametersarray = [		"NAME:DuplicateToAlongLineParameters",
-					"CreateNewObjects:="	, create_new_objects,
-					"XComponent:=", Ex(x).expr, 
-					"YComponent:=", Ex(y).expr, 
-					"ZComponent:=", Ex(z).expr, 
-					"NumClones:=", Ex(n_clones).expr]
+    duplineparametersarray = [      "NAME:DuplicateToAlongLineParameters",
+                    "CreateNewObjects:="    , create_new_objects,
+                    "XComponent:=", Ex(x).expr, 
+                    "YComponent:=", Ex(y).expr, 
+                    "ZComponent:=", Ex(z).expr, 
+                    "NumClones:=", Ex(n_clones).expr]
     dupboundariesarray= ["NAME:Options", 
-				   "DuplicateBoundaries:=", duplicate_boundaries]
+                   "DuplicateBoundaries:=", duplicate_boundaries]
     return oEditor.DuplicateAlongLine(selectionsarray,duplineparametersarray,dupboundariesarray)
 
     

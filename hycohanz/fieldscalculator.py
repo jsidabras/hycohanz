@@ -65,9 +65,7 @@ def clc_eval(oFieldsReporter, setupname, sweepname, freq, phase, variablesdict):
     for key in variablesdict:
         variablesarray += [str(key) + ':=', str(variablesdict[key])]
         
-    print('solutionname: ' + str(solutionname))
-    print('variablesarray: ' + str(variablesarray))
-    
+  
     oFieldsReporter.ClcEval(solutionname, variablesarray)
     
 def enter_line(oFieldsReporter, LineName):
@@ -158,9 +156,7 @@ def get_top_entry_value(oModule, setupname, sweepname, freq, phase, variablesdic
     for key in variablesdict:
         variablesarray += [str(key) + ':=', str(variablesdict[key])]
         
-    print('solutionname: ' + str(solutionname))
-    print('variablesarray: ' + str(variablesarray))
-    
+   
     result = oModule.GetTopEntryValue(solutionname, variablesarray)
 
     return result

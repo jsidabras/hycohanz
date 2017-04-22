@@ -56,13 +56,13 @@ def assign_White(oEditor, partlist):
     propserversarray = ["NAME:PropServers"]
     propserversarray.extend(partlist)
     ismodelarray = ["NAME:ChangedProps",
-				[
+                [
                     "NAME:Color",
-					"R:="			, 255,
-					"G:="			, 255,
-					"B:="			, 255
-				]
-			]
+                    "R:="			, 255,
+                    "G:="			, 255,
+                    "B:="			, 255
+                ]
+            ]
     protarray = ["NAME:Geometry3DAttributeTab", propserversarray, ismodelarray]
     oEditor.ChangeProperty(["Name:AllTabs", protarray])
 
@@ -83,13 +83,13 @@ def assign_Orange(oEditor, partlist):
     propserversarray = ["NAME:PropServers"]
     propserversarray.extend(partlist)
     ismodelarray = ["NAME:ChangedProps",
-				[
+                [
                     "NAME:Color",
-					"R:="			, 255,
-					"G:="			, 128,
-					"B:="			, 0
-				]
-			]
+                    "R:="			, 255,
+                    "G:="			, 128,
+                    "B:="			, 0
+                ]
+            ]
     protarray = ["NAME:Geometry3DAttributeTab", propserversarray, ismodelarray]
     oEditor.ChangeProperty(["Name:AllTabs", protarray])
 
@@ -112,11 +112,11 @@ def assign_IsModel(oEditor, partlist, IsModel=True):
     propserversarray = ["NAME:PropServers"]
     propserversarray.extend(partlist)
     ismodelarray = 	["NAME:ChangedProps",
-				[
-					"NAME:Model",
-					"Value:="		, IsModel
-				]
-			]
+                [
+                    "NAME:Model",
+                    "Value:="		, IsModel
+                ]
+            ]
     protarray = ["NAME:Geometry3DAttributeTab", propserversarray, ismodelarray]
     oEditor.ChangeProperty(["Name:AllTabs", protarray])
 
@@ -138,7 +138,7 @@ def assign_material(oEditor, partlist, MaterialName="vacuum", SolveInside=True):
     """
     selectionsarray = ["NAME:Selections", 
                        "Selections:=", ','.join(partlist)]
-    
+
     attributesarray = ["NAME:Attributes", 
                        "MaterialName:=", MaterialName, 
                        "SolveInside:=", SolveInside]
